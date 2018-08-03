@@ -1,5 +1,7 @@
+import API_BASE_URL from '../config';
+
 export const FETCH_CAT_SUCCESS = 'FETCH_CAT_SUCCESS';
-export const fetchCatSuccess = (data) => ({
+export const fetchCatSuccess = data => ({
   type: FETCH_CAT_SUCCESS,
   data
 });
@@ -10,30 +12,30 @@ export const fetchCatRequest = () => ({
 });
 
 export const FETCH_CAT_ERROR = 'FETCH_CAT_ERROR';
-export const fetchCatError = (error) => ({
+export const fetchCatError = error => ({
   type: FETCH_CAT_ERROR,
   error
 });
 
-export const fetchCat = () => (dispatch) => {
+export const fetchCat = () => dispatch => {
   // dispatch fetchcat request
-  fetch('localhost:8080/api/cats', {
+  fetch(`${API_BASE_URL}/cats/`, {
     method: 'GET'
   })
-  .then(res => {
-    if (!res.ok) {
-      return Promise.reject(res.statusText);
-    }
-    return res.json();
-  })
-  // to add dispatches to local actions
-  .catch(err => console.error(err)); // later change to dispatch error
-}
-
-export const adoptCat = () => (dispatch) => {
-    fetch('localhost:8080/api/cats', {
-      method: 'DELETE'
+    .then(res => {
+      if (!res.ok) {
+        return Promise.reject(res.statusText);
+      }
+      return res.json();
     })
+    .then(data => dispatch(fetchCatSuccess(data)))
+    .catch(err => console.error(err)); // later change to dispatch error
+};
+
+export const adoptCat = () => dispatch => {
+  fetch(`${API_BASE_URL}/cats/`, {
+    method: 'DELETE'
+  })
     .then(res => {
       if (!res.ok) {
         return Promise.reject(res.statusText);
@@ -41,4 +43,4 @@ export const adoptCat = () => (dispatch) => {
       dispatch(fetchCat());
     })
     .catch(err => console.error(err)); // later change to dispatch error
-}
+};

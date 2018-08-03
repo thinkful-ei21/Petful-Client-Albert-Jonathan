@@ -1,16 +1,22 @@
 import React, { Component } from 'react';
-
+import { connect } from 'react-redux';
 import Pet from './Pet';
+import { fetchCat, adoptCat } from '../actions/cat-actions';
+import { fetchDog, adoptDog } from '../actions/dog-actions';
 
 import '../dashboard.css';
 
 class Dashboard extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      catToAdopt: '',
-      dogToAdopt: ''
-    };
+  componentDidMount() {
+    this.props.dispatch(fetchCat());
+    this.props.dispatch(fetchDog());
+  }
+
+  onAdoptCat() {
+    this.props.dispatch(adoptCat());
+  }
+  onAdoptDog() {
+    this.props.dispatch(adoptDog());
   }
 
   render() {
@@ -19,12 +25,16 @@ class Dashboard extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to A.J.'s Adpot-A-Pet</h1>
         </header>
-        <p className="App-intro">To get started, add code under the hood :).</p>
-        <Pet petType={this.state.catToAdopt} />
-        <Pet petType={this.state.dogToAdopt} />
+        <Pet pet={this.props.catToAdopt} onAdoptPet={() => this.onAdoptCat()} />
+        <Pet pet={this.props.dogToAdopt} onAdoptPet={() => this.onAdoptDog()} />
       </div>
     );
   }
 }
 
-export default Dashboard;
+const mapStateToProps = state => ({
+  catToAdopt: state.catReducer.data,
+  dogToAdopt: state.dogReducer.data
+});
+
+export default connect(mapStateToProps)(Dashboard);
