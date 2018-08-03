@@ -18,7 +18,8 @@ export const fetchCatError = error => ({
 });
 
 export const fetchCat = () => dispatch => {
-  // dispatch fetchcat request
+  console.log('ho');
+  // dispatch(fetchCatRequest());
   fetch(`${API_BASE_URL}/cats/`, {
     method: 'GET'
   })
@@ -28,8 +29,11 @@ export const fetchCat = () => dispatch => {
       }
       return res.json();
     })
-    .then(data => dispatch(fetchCatSuccess(data)))
-    .catch(err => console.error(err)); // later change to dispatch error
+    .then(data => {
+      console.log(data);
+      dispatch(fetchCatSuccess(data));
+    })
+    .catch(err => dispatch(fetchCatError(err)));
 };
 
 export const adoptCat = () => dispatch => {

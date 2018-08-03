@@ -3,8 +3,19 @@ import React, { Component } from 'react';
 class Pet extends Component {
   render() {
     if (!this.props.pet) {
-      return <div>Loading</div>;
+      return (
+        <h2>
+          We are out of {this.props.animalType}! Sorry, please come back soon!
+        </h2>
+      );
     }
+    if (this.props.loading) {
+      return <h2>Loading</h2>;
+    }
+    if (this.props.error) {
+      return <h2>All {this.props.animalType} have a home!</h2>;
+    }
+
     return (
       <div>
         <header>

@@ -4,10 +4,11 @@ import Pet from './Pet';
 import { fetchCat, adoptCat } from '../actions/cat-actions';
 import { fetchDog, adoptDog } from '../actions/dog-actions';
 
-import '../dashboard.css';
+import '../styles/dashboard.css';
 
 class Dashboard extends Component {
   componentDidMount() {
+    console.log('huh?');
     this.props.dispatch(fetchCat());
     this.props.dispatch(fetchDog());
   }
@@ -25,8 +26,20 @@ class Dashboard extends Component {
         <header className="App-header">
           <h1 className="App-title">Welcome to A.J.'s Adpot-A-Pet</h1>
         </header>
-        <Pet pet={this.props.catToAdopt} onAdoptPet={() => this.onAdoptCat()} />
-        <Pet pet={this.props.dogToAdopt} onAdoptPet={() => this.onAdoptDog()} />
+        <Pet
+          pet={this.props.catToAdopt}
+          onAdoptPet={() => this.onAdoptCat()}
+          loading={this.props.loadingCat}
+          error={this.props.errorCats}
+          animalType={'cats'}
+        />
+        <Pet
+          pet={this.props.dogToAdopt}
+          onAdoptPet={() => this.onAdoptDog()}
+          loading={this.props.loadingDog}
+          error={this.props.errorDogs}
+          animalType={'dogs'}
+        />
       </div>
     );
   }
@@ -34,7 +47,11 @@ class Dashboard extends Component {
 
 const mapStateToProps = state => ({
   catToAdopt: state.catReducer.data,
-  dogToAdopt: state.dogReducer.data
+  errorCats: state.catReducer.error,
+  loadingCat: state.catReducer.loading,
+  dogToAdopt: state.dogReducer.data,
+  errorDogs: state.dogReducer.error,
+  loadingDog: state.dogReducer.loading
 });
 
 export default connect(mapStateToProps)(Dashboard);

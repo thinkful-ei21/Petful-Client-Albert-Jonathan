@@ -18,7 +18,8 @@ export const fetchDogError = error => ({
 });
 
 export const fetchDog = () => dispatch => {
-  // dispatch fetchdog request
+  console.log('hey');
+  // dispatch(fetchDogRequest());
   fetch(`${API_BASE_URL}/dogs/`, {
     method: 'GET'
   })
@@ -28,8 +29,11 @@ export const fetchDog = () => dispatch => {
       }
       return res.json();
     })
-    .then(data => dispatch(fetchDogSuccess(data)))
-    .catch(err => console.error(err)); // later change to dispatch error
+    .then(data => {
+      console.log(data);
+      dispatch(fetchDogSuccess(data));
+    })
+    .catch(err => dispatch(fetchDogError(err)));
 };
 
 export const adoptDog = () => dispatch => {
