@@ -17,9 +17,13 @@ class Pet extends Component {
     }
 
     return (
-      <div>
+      <section className="pet">
         <header>
-          <img src={this.props.pet.imageURL} alt="this is an img" />
+          <img
+            className="pet-img"
+            src={this.props.pet.imageURL}
+            alt={this.props.pet.imageDescription}
+          />
           <h2> {this.props.pet.name} </h2>
         </header>
         <main>
@@ -39,7 +43,7 @@ class Pet extends Component {
           </dl>
           <button onClick={this.props.onAdoptPet}>Adopt</button>
         </main>
-      </div>
+      </section>
     );
   }
 }

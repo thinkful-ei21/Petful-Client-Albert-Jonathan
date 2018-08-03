@@ -22,25 +22,27 @@ class Dashboard extends Component {
 
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <h1 className="App-title">Welcome to A.J.'s Adpot-A-Pet</h1>
+      <section className="dashboard">
+        <header className="dashboard-header">
+          <h1 className="dashboard-title">Welcome to A.J.'s Adpot-A-Pet</h1>
         </header>
-        <Pet
-          pet={this.props.catToAdopt}
-          onAdoptPet={() => this.onAdoptCat()}
-          loading={this.props.loadingCat}
-          error={this.props.errorCats}
-          animalType={'cats'}
-        />
-        <Pet
-          pet={this.props.dogToAdopt}
-          onAdoptPet={() => this.onAdoptDog()}
-          loading={this.props.loadingDog}
-          error={this.props.errorDogs}
-          animalType={'dogs'}
-        />
-      </div>
+        <main className="dashboard-main">
+          <Pet
+            pet={this.props.catToAdopt}
+            onAdoptPet={() => this.onAdoptCat()}
+            loading={this.props.loadingCat}
+            error={this.props.errorCats}
+            animalType={'cats'}
+          />
+          <Pet
+            pet={this.props.dogToAdopt}
+            onAdoptPet={() => this.onAdoptDog()}
+            loading={this.props.loadingDog}
+            error={this.props.errorDogs}
+            animalType={'dogs'}
+          />
+        </main>
+      </section>
     );
   }
 }
