@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import Pet from './Pet';
 
-import '../App.css';
+import '../dashboard.css';
 
 class Dashboard extends Component {
   constructor(props) {
